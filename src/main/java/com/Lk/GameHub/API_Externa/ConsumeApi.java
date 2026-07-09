@@ -1,6 +1,7 @@
 package com.Lk.GameHub.API_Externa;
 
 import com.Lk.GameHub.DTOs.GameDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 public class ConsumeApi {
+    private ObjectMapper mapper = new ObjectMapper();
 
     public List<GameDTO> searchGame(){
         HttpClient client = HttpClient.newHttpClient();
@@ -27,6 +29,14 @@ public class ConsumeApi {
             if (response.statusCode() != 200){
                 throw new RuntimeException("Erro ao consumir api: "+response.statusCode());
             }
+
+            List<GameDTO> gameDtos = mapper.readValue(
+                    response.body(),
+                    mapper.getTypeFactory()
+                            .constructCollectionType(List.class, GameDTO.class)
+            );
+
+            return gameDtos;
 
 
         } catch (IOException | InterruptedException e) {
