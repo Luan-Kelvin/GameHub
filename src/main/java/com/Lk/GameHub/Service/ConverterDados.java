@@ -7,6 +7,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ConverterDados {
@@ -18,6 +19,7 @@ public class ConverterDados {
         }
 
         return dto.stream()
+                .filter(Objects::nonNull)
                 .map(gdto -> new Game(
                         gdto.idGame(),
                         gdto.titulo(),

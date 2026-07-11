@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "games", schema = "mediahub")
+@Table(name = "games", schema = "gamehub")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,6 +23,7 @@ public class Game {
 
     private String genero;
 
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     private String plataforma;
