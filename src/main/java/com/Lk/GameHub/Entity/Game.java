@@ -31,6 +31,9 @@ public class Game {
 
     private LocalDate dataLancamento;
 
+    @ManyToOne
+    @JoinColumn(name = "id_lista_favoritos")
+    Favoritos favoritado;
     public Game(
             Integer idGame, String titulo, String genero,
             String descricao, String plataforma,
