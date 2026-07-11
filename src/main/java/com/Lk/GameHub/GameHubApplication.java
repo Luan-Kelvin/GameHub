@@ -22,6 +22,6 @@ public class GameHubApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		consumeApi.searchGame().stream().forEach(System.out::println);
 
-		// SO FOI FEITO O CONSUMO DA API EXTERNA E A DTO QUE RECEBE OS DADOS, COMECE A CRIAR AS ENTIDADES GAME E FAVORITOS
+
 	}
 }
