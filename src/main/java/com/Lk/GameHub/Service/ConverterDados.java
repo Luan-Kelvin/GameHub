@@ -1,6 +1,7 @@
 package com.Lk.GameHub.Service;
 ;
 import com.Lk.GameHub.DTOs.GameDTO;
+import com.Lk.GameHub.DTOs.GameDtoRest;
 import com.Lk.GameHub.Entity.Game;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
@@ -28,6 +29,20 @@ public class ConverterDados {
                         gdto.plataforma(),
                         gdto.desenvolvedora(),
                         LocalDate.parse(gdto.dataLancamento())
+                ))
+                .toList();
+    }
+
+    public List<GameDtoRest> converterGameDto(List<Game> games){
+        return games.stream()
+                .map(g -> new GameDtoRest(
+                        g.getIdGame(),
+                        g.getTitulo(),
+                        g.getGenero(),
+                        g.getDescricao(),
+                        g.getPlataforma(),
+                        g.getDesenvolvedora(),
+                        String.valueOf(g.getDataLancamento())
                 ))
                 .toList();
     }

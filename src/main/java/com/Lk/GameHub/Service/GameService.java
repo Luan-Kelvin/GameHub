@@ -1,12 +1,14 @@
 package com.Lk.GameHub.Service;
 
 import com.Lk.GameHub.DTOs.GameDTO;
+import com.Lk.GameHub.DTOs.GameDtoRest;
 import com.Lk.GameHub.Entity.Game;
 import com.Lk.GameHub.Repository.FavoritosRepository;
 import com.Lk.GameHub.Repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +35,19 @@ public class GameService {
         List<Game> games = converterDados.converteGame(dto);
 
         games.forEach(this::adicionarGame);
+    }
+
+    public List<GameDtoRest> obterTodosgames(){
+        List<Game> gamesrep = gameRepository.findAll();
+
+        if (gamesrep.isEmpty()){
+            throw new RuntimeException("Lista vazia, nenhum jogo cadastrado.");
+        }
+
+        List<Game> listaOrdenada = gamesrep.stream()
+                .sorted(Comparator.comparing(Game::getIdGame))
+                .toList();
+
+        return converterDados.converterGameDto(listaOrdenada);
     }
 }
